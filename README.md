@@ -1,10 +1,12 @@
-# Perplexity Product Search API
+# Google Shopping Product Search API
 
-API REST para busca de produtos utilizando Perplexity AI como motor de busca inteligente.
+API REST para busca de produtos com suporte a **busca real no Google Shopping** (via SerpApi) e **busca assistida por IA** (via Gemini).
 
 ## Objetivo
 
-Retornar **exclusivamente produtos relevantes** com base em consultas textuais, filtrando e estruturando as respostas da Perplexity AI.
+Retornar **exclusivamente produtos relevantes** com base em consultas textuais, oferecendo duas modalidades:
+- **Google Shopping Real**: Busca direta nos resultados reais do Google Shopping
+- **Busca com IA**: Processamento inteligente via Gemini AI para interpretação avançada
 
 ## Documentacao
 
@@ -43,7 +45,13 @@ npm run dev
 # Health check
 curl http://localhost:3000/api/v1/health
 
-# Busca de produtos
+# Busca com Google Shopping Real (SerpApi)
+curl -X POST http://localhost:3000/api/v1/search/products `
+  -H "x-api-key: dev-key-1" `
+  -H "Content-Type: application/json" `
+  -d '{"query": "notebook gamer ate 5000 reais", "options": {"provider": "serpapi"}}'
+
+# Busca com IA (Gemini) - padrão
 curl -X POST http://localhost:3000/api/v1/search/products `
   -H "x-api-key: dev-key-1" `
   -H "Content-Type: application/json" `
@@ -76,11 +84,30 @@ src/
 ??? types/         # TypeScript definitions
 ```
 
+## Modos de Busca
+
+### 1. Google Shopping Real (SerpApi)
+Busca direta nos resultados do Google Shopping sem processamento de IA:
+- Produtos reais do Google Shopping
+- Preços atualizados em tempo real
+- Suporte a filtros (país, idioma, preço, ordenação)
+- **Não usa IA** - busca simples e direta
+- Requer `SERPAPI_API_KEY`
+
+### 2. Busca com IA (Gemini)
+Processamento inteligente de consultas:
+- Interpretação avançada via Gemini AI
+- Requer `GEMINI_API_KEY`
+- Modo padrão se `provider` não for especificado
+
+**Para escolher o modo**, envie `"options": {"provider": "serpapi"}` ou `"options": {"provider": "gemini"}` na requisição.
+
 ## Variaveis de Ambiente
 
 | Variavel | Descricao | Obrigatorio |
 |----------|-----------|-------------|
-| `PERPLEXITY_API_KEY` | Chave da API Perplexity | Sim |
+| `GEMINI_API_KEY` | Chave da API Gemini | Sim (para busca com IA) |
+| `SERPAPI_API_KEY` | Chave da API SerpApi | Sim (para Google Shopping) |
 | `PORT` | Porta do servidor | Nao (default: 3000) |
 | `ALLOWED_API_KEYS` | API keys permitidas | Sim |
 
