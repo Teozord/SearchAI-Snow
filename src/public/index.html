@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Search AI - Perplexity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --bg-primary: #0f0f1a;
+      --bg-secondary: #1a1a2e;
+      --bg-card: #16213e;
+      --accent-blue: #00d9ff;
+      --accent-green: #00ff88;
+      --accent-purple: #a855f7;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      min-height: 100vh;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+    
+    /* Header */
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+      margin-top: 8px;
+    }
+    
+    /* Search Section */
+    .search-section {
+      background: var(--bg-secondary);
+      border-radius: 20px;
+      padding: 32px;
+      margin-bottom: 32px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+    
+    .search-form {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 16px;
+      margin-bottom: 24px;
+      align-items: end;
+    }
+    
+    .search-input-wrapper {
+      position: relative;
+      min-width: 0; /* Allow shrinking */
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 20px;
+    }
+    
+    .search-input {
+      width: 100%;
+      height: 52px;
+      padding: 0 20px 0 48px;
+      font-size: 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    
+    .search-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.1);
+    }
+    
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+    
+    .search-btn {
+      height: 52px;
+      padding: 0 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 140px;
+    }
+    
+    .search-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 40px rgba(0, 217, 255, 0.3);
+    }
+    
+    .search-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    /* Provider Select */
+    .provider-select-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 180px;
+    }
+    
+    .provider-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .provider-select {
+      height: 52px;
+      padding: 0 12px;
+      font-size: 0.9rem;
+      border: 2px solid var(--border-color);
+      border-radius: 12px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+    
+    .provider-select:focus {
+      border-color: var(--accent-blue);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .options-row {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .search-form {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      
+      .provider-select-wrapper {
+        min-width: auto;
+      }
+      
+      .search-btn {
+        min-width: auto;
+        width: 100%;
+      }
+      
+      .options-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      
+      .container {
+        padding: 20px 16px;
+      }
+      
+      .search-section {
+        padding: 24px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .options-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Status Bar */
+    .status-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.85rem;
+    }
+    
+    .status-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ef4444;
+      animation: pulse 2s infinite;
+    }
+    
+    .status-dot.online {
+      background: var(--accent-green);
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    
+    .status-text {
+      color: var(--text-secondary);
+    }
+    
+    /* Advanced Options */
+    .advanced-options {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: var(--bg-primary);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .provider-options {
+      animation: fadeIn 0.2s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .options-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+      align-items: start;
+    }
+    
+    .options-row:last-child {
+      margin-bottom: 0;
+    }
+    
+    .option-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .option-group label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+    
+    .option-group select,
+    .option-group input[type="number"] {
+      height: 44px;
+      padding: 0 12px;
+      font-size: 0.9rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+      box-sizing: border-box;
+    }
+    
+    .option-group select:focus,
+    .option-group input[type="number"]:focus {
+      border-color: var(--accent-blue);
+    }
+    
+    .option-group input[type="number"] {
+      min-width: 100px;
+    }
+    
+    .checkbox-group {
+      flex-direction: row;
+      align-items: center;
+      min-width: auto;
+      height: 44px;
+      justify-content: flex-start;
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+    
+    /* Price filter warning */
+    .price-warning {
+      grid-column: 1 / -1 !important;
+      background: rgba(245, 158, 11, 0.1);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      border-radius: 8px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    
+    .price-warning small {
+      color: #f59e0b;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+    }
+    
+    .results-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+    
+    .results-meta {
+      display: flex;
+      gap: 16px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+    
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    /* Product Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+    }
+    
+    .product-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      border-color: var(--accent-blue);
+    }
+    
+    .product-image-container {
+      position: relative;
+      height: 200px;
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+    
+    .product-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover .product-image {
+      transform: scale(1.05);
+    }
+    
+    .product-image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 48px;
+    }
+    
+    .product-image-placeholder span {
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    
+    .product-badges {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .badge {
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    
+    .badge-category {
+      background: rgba(168, 85, 247, 0.9);
+      color: white;
+    }
+    
+    .badge-brand {
+      background: rgba(0, 217, 255, 0.9);
+      color: var(--bg-primary);
+    }
+    
+    .badge-availability {
+      background: rgba(0, 255, 136, 0.9);
+      color: var(--bg-primary);
+    }
+    
+    .product-content {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-header {
+      margin-bottom: 12px;
+    }
+    
+    .product-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .product-brand {
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      font-weight: 500;
+    }
+    
+    .product-description {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    .product-specs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    
+    .spec-tag {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+    }
+    
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-color);
+      margin-top: auto;
+    }
+    
+    .product-price {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .price-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    
+    .price-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-green);
+    }
+    
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #fbbf24;
+      font-size: 0.9rem;
+    }
+    
+    .product-actions {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .btn-view {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .btn-primary {
+      background: var(--accent-blue);
+      color: var(--bg-primary);
+    }
+    
+    .btn-primary:hover {
+      background: white;
+    }
+    
+    /* Images Gallery */
+    .images-section {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .images-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .images-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
+    }
+    
+    .gallery-image {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .gallery-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .gallery-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    /* Citations */
+    .citations-section {
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 24px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .citations-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    
+    .citations-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .citation-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--bg-primary);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .citation-item:hover {
+      background: var(--bg-card);
+      color: var(--accent-blue);
+    }
+    
+    .citation-number {
+      background: var(--accent-blue);
+      color: var(--bg-primary);
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    
+    .citation-url {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    /* Loading & States */
+    .loading {
+      text-align: center;
+      padding: 80px 20px;
+    }
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid var(--border-color);
+      border-top-color: var(--accent-blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 24px;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .loading-text {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+    
+    .loading-subtext {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    
+    .error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      color: #fca5a5;
+    }
+    
+    .error-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    
+    .empty {
+      text-align: center;
+      padding: 80px 20px;
+      color: var(--text-muted);
+    }
+    
+    .empty-icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      opacity: 0.5;
+    }
+    
+    .empty-text {
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    
+    .empty-hint {
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .search-form {
+        flex-direction: column;
+      }
+      
+      .search-btn {
+        width: 100%;
+      }
+      
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .status-bar {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      
+      .results-header {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo">
+        <div class="logo-icon">&#128269;</div>
+        <h1>Product Search AI</h1>
+      </div>
+      <p class="subtitle">Busca inteligente de produtos com AI</p>
+    </header>
+    
+    <section class="search-section">
+      <form class="search-form" id="searchForm">
+        <div class="search-input-wrapper">
+          <span class="search-icon">&#128269;</span>
+          <input 
+            type="text" 
+            class="search-input" 
+            id="searchInput"
+            placeholder="Ex: notebook gamer, iPhone 15 Pro, fone bluetooth JBL..."
+            autofocus
+          >
+        </div>
+        
+        <!-- Provider Selection -->
+        <div class="provider-select-wrapper">
+          <label for="providerSelect" class="provider-label">Provedor</label>
+          <select id="providerSelect" class="provider-select">
+            <option value="serpapi">🛒 Google Shopping</option>
+            <option value="gemini">🤖 Gemini AI</option>
+          </select>
+        </div>
+        
+        <button type="submit" class="search-btn" id="searchBtn">
+          Buscar Produtos
+        </button>
+      </form>
+      
+      <!-- Advanced Options Panel -->
+      <div class="advanced-options" id="advancedOptions">
+        <!-- Gemini Options -->
+        <div id="geminiOptions" class="provider-options" style="display: none;">
+          <div class="options-row">
+            <div class="option-group">
+              <label for="modelSelect">Modelo</label>
+              <select id="modelSelect">
+                <option value="gemini-2.5-flash">gemini-2.5-flash (rápido)</option>
+                <option value="gemini-2.5-pro">gemini-2.5-pro (preciso)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        
+        <!-- SerpApi Options -->
+        <div id="serpApiOptions" class="provider-options">
+          <div class="options-row">
+            <div class="option-group">
+              <label for="countrySelect">País</label>
+              <select id="countrySelect">
+                <option value="br">🇧🇷 Brasil</option>
+                <option value="us">🇺🇸 Estados Unidos</option>
+                <option value="pt">🇵🇹 Portugal</option>
+                <option value="es">🇪🇸 Espanha</option>
+                <option value="mx">🇲🇽 México</option>
+                <option value="ar">🇦🇷 Argentina</option>
+                <option value="de">🇩🇪 Alemanha</option>
+                <option value="fr">🇫🇷 França</option>
+                <option value="uk">🇬🇧 Reino Unido</option>
+                <option value="it">🇮🇹 Itália</option>
+                <option value="jp">🇯🇵 Japão</option>
+                <option value="ca">🇨🇦 Canadá</option>
+              </select>
+            </div>
+            
+            <div class="option-group">
+              <label for="languageSelect">Idioma</label>
+              <select id="languageSelect">
+                <option value="pt">Português</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
+                <option value="fr">Français</option>
+              </select>
+            </div>
+            
+            <div class="option-group">
+              <label for="sortSelect">Ordenar por</label>
+              <select id="sortSelect">
+                <option value="relevance">Relevância</option>
+                <option value="price_low">Menor preço</option>
+                <option value="price_high">Maior preço</option>
+                <option value="review">Avaliações</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="options-row">
+            <div class="option-group">
+              <label for="minPrice">Preço mín.</label>
+              <input type="number" id="minPrice" placeholder="0" min="0" step="10">
+            </div>
+            
+            <div class="option-group">
+              <label for="maxPrice">Preço máx.</label>
+              <input type="number" id="maxPrice" placeholder="10000" min="0" step="10">
+            </div>
+            
+            <div id="priceFilterWarning" class="price-warning" style="display: none;">
+              <small>
+                ⚠️ Filtros de preço não suportados no país selecionado
+              </small>
+            </div>
+          </div>
+          
+          <div class="options-row">
+            <div class="option-group checkbox-group">
+              <label>
+                <input type="checkbox" id="freeShipping"> Frete grátis
+              </label>
+            </div>
+            
+            <div class="option-group checkbox-group">
+              <label>
+                <input type="checkbox" id="onSale"> Em promoção
+              </label>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="status-bar">
+        <div class="status-left">
+          <div class="status-indicator">
+            <div class="status-dot" id="statusDot"></div>
+            <span class="status-text" id="statusText">Verificando API...</span>
+          </div>
+        </div>
+        <div id="apiInfo" class="status-text"></div>
+      </div>
+    </section>
+    
+    <main id="results"></main>
+  </div>
+
+  <script>
+    const API_BASE = 'http://localhost:3000/api/v1';
+    const API_KEY = 'dev-key-1';
+    
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const searchBtn = document.getElementById('searchBtn');
+    const providerSelect = document.getElementById('providerSelect');
+    const modelSelect = document.getElementById('modelSelect');
+    const geminiOptions = document.getElementById('geminiOptions');
+    const serpApiOptions = document.getElementById('serpApiOptions');
+    const countrySelect = document.getElementById('countrySelect');
+    const languageSelect = document.getElementById('languageSelect');
+    const sortSelect = document.getElementById('sortSelect');
+    const minPriceInput = document.getElementById('minPrice');
+    const maxPriceInput = document.getElementById('maxPrice');
+    const freeShippingCheckbox = document.getElementById('freeShipping');
+    const onSaleCheckbox = document.getElementById('onSale');
+    const resultsDiv = document.getElementById('results');
+    const statusDot = document.getElementById('statusDot');
+    const statusText = document.getElementById('statusText');
+    const apiInfo = document.getElementById('apiInfo');
+    
+    // Toggle provider options
+    function updateProviderOptions() {
+      const provider = providerSelect.value;
+      if (provider === 'gemini') {
+        geminiOptions.style.display = 'block';
+        serpApiOptions.style.display = 'none';
+      } else {
+        geminiOptions.style.display = 'none';
+        serpApiOptions.style.display = 'block';
+        updatePriceFilterWarning(); // Check price filter support
+      }
+    }
+    
+    // Check if price filters are supported
+    function updatePriceFilterWarning() {
+      const countrySelect = document.getElementById('countrySelect');
+      const priceFilterWarning = document.getElementById('priceFilterWarning');
+      const provider = providerSelect.value;
+      
+      if (provider === 'serpapi' && countrySelect.value === 'br') {
+        priceFilterWarning.style.display = 'block';
+      } else {
+        priceFilterWarning.style.display = 'none';
+      }
+    }
+    
+    providerSelect.addEventListener('change', updateProviderOptions);
+    document.getElementById('countrySelect').addEventListener('change', updatePriceFilterWarning);
+    updateProviderOptions(); // Initial state
+    
+    // Check API health
+    async function checkHealth() {
+      try {
+        const res = await fetch(`${API_BASE}/health`);
+        const data = await res.json();
+        statusDot.classList.add('online');
+        statusText.textContent = `API Online - v${data.version}`;
+        apiInfo.textContent = `Uptime: ${formatUptime(data.uptime)}`;
+        return true;
+      } catch (err) {
+        statusDot.classList.remove('online');
+        statusText.textContent = 'API Offline';
+        apiInfo.textContent = '';
+        return false;
+      }
+    }
+    
+    function formatUptime(seconds) {
+      if (seconds < 60) return `${seconds}s`;
+      if (seconds < 3600) return `${Math.floor(seconds / 60)}m ${seconds % 60}s`;
+      return `${Math.floor(seconds / 3600)}h ${Math.floor((seconds % 3600) / 60)}m`;
+    }
+    
+    // Build search options based on provider
+    function buildSearchOptions() {
+      const provider = providerSelect.value;
+      const options = {
+        max_results: 20,
+        language: 'pt-BR',
+        include_prices: true,
+        include_sources: true,
+        provider: provider
+      };
+      
+      if (provider === 'gemini') {
+        options.llm_model = modelSelect.value;
+      } else {
+        // SerpApi options
+        options.serpapi_country = countrySelect.value;
+        options.serpapi_language = languageSelect.value;
+        options.serpapi_sort_by = sortSelect.value !== 'relevance' ? sortSelect.value : undefined;
+        
+        const minPrice = parseInt(minPriceInput.value);
+        const maxPrice = parseInt(maxPriceInput.value);
+        if (!isNaN(minPrice) && minPrice > 0) options.serpapi_min_price = minPrice;
+        if (!isNaN(maxPrice) && maxPrice > 0) options.serpapi_max_price = maxPrice;
+        
+        if (freeShippingCheckbox.checked) options.serpapi_free_shipping = true;
+        if (onSaleCheckbox.checked) options.serpapi_on_sale = true;
+      }
+      
+      return options;
+    }
+    
+    // Search products
+    async function searchProducts(query) {
+      const provider = providerSelect.value;
+      const providerName = provider === 'serpapi' ? 'Google Shopping' : 'Gemini AI';
+      
+      resultsDiv.innerHTML = `
+        <div class="loading">
+          <div class="loading-spinner"></div>
+          <p class="loading-text">Buscando produtos via ${providerName}...</p>
+          <p class="loading-subtext">Isso pode levar alguns segundos</p>
+        </div>
+      `;
+      
+      try {
+        const options = buildSearchOptions();
+        console.log('Search options:', options);
+        
+        const res = await fetch(`${API_BASE}/search/products`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY
+          },
+          body: JSON.stringify({ query, options })
+        });
+        
+        const data = await res.json();
+        console.log('API Response:', data);
+        
+        if (!data.success) {
+          throw new Error(data.error?.message || 'Erro desconhecido');
+        }
+        
+        renderResults(data);
+      } catch (err) {
+        resultsDiv.innerHTML = `
+          <div class="error">
+            <div class="error-icon">&#9888;</div>
+            <h3>Erro na busca</h3>
+            <p>${escapeHtml(err.message)}</p>
+          </div>
+        `;
+      }
+    }
+    
+    // Render results
+    function renderResults(data) {
+      const { products, total_found, query_interpreted, images, citations } = data.data;
+      const { response_time_ms, model_used } = data.meta;
+      
+      console.log('DEBUG - Full API Response:', data);
+      console.log('DEBUG - Images array:', images);
+      console.log('DEBUG - Images length:', images?.length || 0);
+      
+      if (!products || products.length === 0) {
+        resultsDiv.innerHTML = `
+          <div class="empty">
+            <div class="empty-icon">&#128722;</div>
+            <p class="empty-text">Nenhum produto encontrado</p>
+            <p class="empty-hint">Tente termos mais especificos como "iPhone 15" ou "cadeira gamer"</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = `
+        <div class="results-header">
+          <h2 class="results-title">${total_found} produto(s) encontrado(s)</h2>
+          <div class="results-meta">
+            <span class="meta-item">&#9201; ${response_time_ms}ms</span>
+            <span class="meta-item">&#129302; ${model_used}</span>
+          </div>
+        </div>
+        <div class="products-grid">
+      `;
+      
+      for (let i = 0; i < products.length; i++) {
+        html += renderProductCard(products[i], images, i);
+      }
+      
+      html += '</div>';
+      
+      // Add images gallery if available
+      if (images && images.length > 0) {
+        html += renderImagesGallery(images);
+      }
+      
+      // Add citations if available
+      if (citations && citations.length > 0) {
+        html += renderCitations(citations);
+      }
+      
+      resultsDiv.innerHTML = html;
+    }
+    
+    function renderProductCard(product, globalImages, index) {
+      const priceDisplay = formatPrice(product.price);
+      const score = product.relevance_score ? Math.round(product.relevance_score * 100) : null;
+      const rating = product.rating ? product.rating.toFixed(1) : null;
+      
+      // PRIORITY: use product.image_url (resolvida via backend) e só depois cair para imagens globais
+      let imageUrl = product.image_url || null;
+      console.log(`Product ${index}: product.image_url=`, product.image_url);
+      console.log(`Product ${index}: globalImages=`, globalImages);
+      console.log(`Product ${index}: globalImages length=`, globalImages?.length || 0);
+      
+      if (!imageUrl && globalImages && globalImages.length > 0) {
+        // Fallback: distribuir imagens globais entre os produtos
+        imageUrl = globalImages[index % globalImages.length];
+        console.log(`Product ${index}: selected fallback image from globalImages=${imageUrl}`);
+      }
+      
+      console.log(`Product ${index}: final imageUrl used in card=`, imageUrl);
+      
+      return `
+        <article class="product-card">
+          <div class="product-image-container">
+            ${imageUrl 
+              ? `<img src="${escapeHtml(imageUrl)}" alt="${escapeHtml(product.name)}" class="product-image" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\\'product-image-placeholder\\'><span>&#128247;</span><span>Imagem indisponivel</span></div>'">`
+              : `<div class="product-image-placeholder"><span>&#128247;</span><span>Sem imagem</span></div>`
+            }
+            <div class="product-badges">
+              ${product.category ? `<span class="badge badge-category">${escapeHtml(product.category)}</span>` : ''}
+              ${product.brand ? `<span class="badge badge-brand">${escapeHtml(product.brand)}</span>` : ''}
+              ${product.availability ? `<span class="badge badge-availability">${escapeHtml(product.availability)}</span>` : ''}
+            </div>
+          </div>
+          
+          <div class="product-content">
+            <div class="product-header">
+              <h3 class="product-name">${escapeHtml(product.name)}</h3>
+              ${product.brand ? `<span class="product-brand">${escapeHtml(product.brand)}</span>` : ''}
+            </div>
+            
+            ${product.description ? `<p class="product-description">${escapeHtml(product.description)}</p>` : ''}
+            
+            ${product.specs && product.specs.length > 0 ? `
+              <div class="product-specs">
+                ${product.specs.slice(0, 4).map(spec => `<span class="spec-tag">${escapeHtml(spec)}</span>`).join('')}
+              </div>
+            ` : ''}
+            
+            <div class="product-footer">
+              <div class="product-price">
+                <span class="price-label">Preco</span>
+                <span class="price-value">${priceDisplay}</span>
+              </div>
+              
+              <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 8px;">
+                ${rating ? `
+                  <div class="product-rating">
+                    <span>&#9733;</span>
+                    <span>${rating}</span>
+                  </div>
+                ` : ''}
+                
+                ${product.source?.url ? `
+                  <a href="${escapeHtml(product.source.url)}" target="_blank" class="btn-view btn-primary">
+                    Ver na ${escapeHtml(product.source.name || 'loja')} &#8594;
+                  </a>
+                ` : (product.source?.name ? `<span class="status-text">${escapeHtml(product.source.name)}</span>` : '')}
+              </div>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+    
+    function renderImagesGallery(images) {
+      return `
+        <section class="images-section">
+          <h3 class="images-title">&#128247; Imagens dos Produtos (${images.length})</h3>
+          <div class="images-grid">
+            ${images.slice(0, 12).map((url, i) => `
+              <a href="${escapeHtml(url)}" target="_blank" class="gallery-image">
+                <img 
+                  src="${escapeHtml(url)}" 
+                  alt="Produto ${i + 1}" 
+                  loading="lazy" 
+                  onerror="this.parentElement.style.display='none'"
+                  onload="this.style.opacity='1'"
+                  style="opacity:0;transition:opacity 0.3s ease"
+                >
+              </a>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+    
+    function renderCitations(citations) {
+      return `
+        <section class="citations-section">
+          <h3 class="citations-title">&#128279; Fontes (${citations.length})</h3>
+          <div class="citations-list">
+            ${citations.slice(0, 6).map((url, i) => `
+              <a href="${escapeHtml(url)}" target="_blank" class="citation-item">
+                <span class="citation-number">${i + 1}</span>
+                <span class="citation-url">${escapeHtml(url)}</span>
+              </a>
+            `).join('')}
+          </div>
+        </section>
+      `;
+    }
+    
+    function formatPrice(price) {
+      if (!price) return 'Consultar';
+      
+      if (price.formatted) return price.formatted;
+      
+      const value = price.value || price.min;
+      if (!value) return 'Consultar';
+      
+      return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: price.currency || 'BRL'
+      }).format(value);
+    }
+    
+    function escapeHtml(text) {
+      if (!text) return '';
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+    
+    // Event listeners
+    searchForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (!query) return;
+      
+      searchBtn.disabled = true;
+      searchBtn.textContent = 'Buscando...';
+      
+      await searchProducts(query);
+      
+      searchBtn.disabled = false;
+      searchBtn.textContent = 'Buscar Produtos';
+    });
+    
+    // Init
+    checkHealth();
+    setInterval(checkHealth, 30000);
+  </script>
+</body>
+</html>

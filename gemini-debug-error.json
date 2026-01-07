@@ -1,0 +1,45 @@
+{
+  "products": [
+    {
+      "name": "Apple iPhone 14 (128 GB) – Azul",
+      "description": "O iPhone 14 possui o chip A15 Bionic com GPU de 5 núcleos para desempenho rápido. Sistema de câmera dupla avançado para fotos incríveis em qualquer luz, e bateria para o dia todo.",
+      "brand": "Apple",
+      "category": "Smartphone",
+      "price": {
+        "value": 4599.00,
+        "min": 4599.00,
+        "max": 4599.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Amazon Brasil",
+        "url": "https://www.amazon.com.br/Apple-iPhone-14-128-GB/dp/B0BN72DG3G"
+      },
+      "image_url": "https://m.media-amazon.com/images/I/61bK6PMz4-L._AC_SL1500_.jpg",
+      "specs": [
+        "128 GB de armazenamento",
+        "Tela Super Retina XDR de 6,1 polegadas",
+        "Chip A15 Bionic com GPU de 5 núcleos",
+        "Sistema de câmera dupla avançado de 12 MP",
+        "Bateria para o dia todo",
+        "Detecção de Acidente"
+      ],
+      "rating": 4.7,
+      "availability": "Disponivel"
+    },
+    {
+      "name": "Smartphone Apple iPhone 14 128GB Meia-Noite Tela 6,1\" 12MP",
+      "description": "O iPhone 14 vem com recursos de segurança inovadores, como Detecção de Acidente, e a maior duração de bateria em um iPhone. Desempenho rápido com o chip A15 Bionic.",
+      "brand": "Apple",
+      "category": "Smartphone",
+      "price": {
+        "value": 4599.00,
+        "min": 4599.00,
+        "max": 4599.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Magazine Luiza",
+        "url": "https://www.magazineluiza.com.br/smartphone-apple-iphone-14-128gb-meia-noite-tela-6-1-12mp/p/236528700/sm/smph/"
+      },
+      "image_url": "https://a-static.mlcdn.com.br/800x560/smartphone-apple-iphone-14-128gb-meia-noite-tela-6-1-12mp/magazineluiza/236528700/e9792193b220743f11

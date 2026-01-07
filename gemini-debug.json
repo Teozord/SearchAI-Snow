@@ -1,0 +1,261 @@
+{
+  "products": [
+    {
+      "name": "iPhone 14 128GB Estelar",
+      "description": "O iPhone 14 apresenta um sistema de câmera dupla avançado para fotos incríveis em qualquer luz, Modo Cinema em 4K Dolby Vision e detecção de acidentes para sua segurança.",
+      "brand": "Apple",
+      "category": "Smartphones",
+      "price": {
+        "value": 4999.00,
+        "min": 4500.00,
+        "max": 5500.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Apple Brasil",
+        "url": "https://www.apple.com/br/iphone-14/"
+      },
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-finish-select-202209-6-1?wid=5120&hei=2880&fmt=jpeg&qlt=90&.v=1661709407130",
+      "specs": [
+        "Tela Super Retina XDR de 6,1 polegadas",
+        "Chip A15 Bionic",
+        "Câmera dupla avançada de 12MP",
+        "Bateria para o dia todo",
+        "Resistência à água e poeira"
+      ],
+      "rating": 4.8,
+      "availability": "Disponível"
+    },
+    {
+      "name": "iPhone 14 256GB Azul",
+      "description": "Com 256GB de armazenamento, o iPhone 14 azul oferece mais espaço para fotos, vídeos e aplicativos, mantendo o desempenho do chip A15 Bionic e o sistema de câmera dupla.",
+      "brand": "Apple",
+      "category": "Smartphones",
+      "price": {
+        "value": 5999.00,
+        "min": 5500.00,
+        "max": 6500.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Magazine Luiza",
+        "url": "https://www.magazineluiza.com.br/iphone-14-256gb-azul/p/236528700/et/ip14/"
+      },
+      "image_url": "https://a-static.mlcdn.com.br/800x560/iphone-14-256gb-azul-apple/magazineluiza/236528700/409d012423714b62142289454173367b.jpg",
+      "specs": [
+        "Tela Super Retina XDR de 6,1 polegadas",
+        "256GB de armazenamento",
+        "Chip A15 Bionic",
+        "Câmera dupla avançada de 12MP",
+        "Detecção de Acidentes"
+      ],
+      "rating": 4.7,
+      "availability": "Disponível"
+    },
+    {
+      "name": "iPhone 14 Plus 128GB Meia-noite",
+      "description": "O iPhone 14 Plus oferece uma tela maior de 6,7 polegadas e a melhor duração de bateria já vista em um iPhone, ideal para quem busca mais espaço e autonomia.",
+      "brand": "Apple",
+      "category": "Smartphones",
+      "price": {
+        "value": 5999.00,
+        "min": 5500.00,
+        "max": 6500.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Amazon Brasil",
+        "url": "https://www.amazon.com.br/Apple-iPhone-14-Plus-128GB/dp/B0BDJ6788R"
+      },
+      "image_url": "https://m.media-amazon.com/images/I/71Yd5W3-E7L._AC_SL1500_.jpg",
+      "specs": [
+        "Tela Super Retina XDR de 6,7 polegadas",
+        "Chip A15 Bionic",
+        "Câmera dupla avançada de 12MP",
+        "Maior duração de bateria",
+        "Detecção de Acidentes"
+      ],
+      "rating": 4.8,
+      "availability": "Disponível"
+    },
+    {
+      "name": "iPhone 14 Pro 128GB Roxo-profundo",
+      "description": "O iPhone 14 Pro eleva a experiência com a Dynamic Island, tela Sempre Ativa e uma câmera principal de 48MP para detalhes incríveis. Chip A16 Bionic para desempenho superior.",
+      "brand": "Apple",
+      "category": "Smartphones",
+      "price": {
+        "value": 7999.00,
+        "min": 7500.00,
+        "max": 8500.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Fast Shop",
+        "url": "https://www.fastshop.com.br/web/p/DIFIP14PRO128ROX_PRD/iphone-14-pro-128gb-roxo-profundo-apple-mq0g3br-a"
+      },
+      "image_url": "https://images.fastshop.com.br/products/DIFIP14PRO128ROX_PRD/DIFIP14PRO128ROX_PRD_1.jpeg",
+      "specs": [
+        "Dynamic Island",
+        "Tela Sempre Ativa de 6,1 polegadas",
+        "Câmera principal de 48MP",
+        "Chip A16 Bionic",
+        "Detecção de Acidentes"
+      ],
+      "rating": 4.9,
+      "availability": "Disponível"
+    },
+    {
+      "name": "iPhone 14 Pro Max 256GB Dourado",
+      "description": "O iPhone 14 Pro Max combina a tela grande de 6,7 polegadas com a Dynamic Island, câmera de 48MP e o poderoso chip A16 Bionic, oferecendo o máximo em tecnologia e desempenho.",
+      "brand": "Apple",
+      "category": "Smartphones",
+      "price": {
+        "value": 9499.00,
+        "min": 9000.00,
+        "max": 10000.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Casas Bahia",
+        "url": "https://www.casasbahia.com.br/iphone-14-pro-max-256gb-dourado-apple/p/1548000000"
+      },
+      "image_url": "https://www.casasbahia.com.br/images/iphone-14-pro-max-256gb-dourado-apple/1548000000/iphone-14-pro-max-256gb-dourado-apple.jpg",
+      "specs": [
+        "Dynamic Island",
+        "Tela Sempre Ativa de 6,7 polegadas",
+        "Câmera principal de 48MP",
+        "Chip A16 Bionic",
+        "Bateria de longa duração"
+      ],
+      "rating": 4.9,
+      "availability": "Disponível"
+    },
+    {
+      "name": "Capa de Silicone com MagSafe para iPhone 14 - Meia-noite",
+      "description": "Proteja seu iPhone 14 com esta capa de silicone macia ao toque, projetada para se encaixar perfeitamente e compatível com carregamento MagSafe.",
+      "brand": "Apple",
+      "category": "Acessórios para Celular",
+      "price": {
+        "value": 499.00,
+        "min": 450.00,
+        "max": 550.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Apple Brasil",
+        "url": "https://www.apple.com/br/shop/product/MPU63ZM/A/capa-de-silicone-com-magsafe-para-o-iphone-14-meia-noite"
+      },
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MPU63?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=1660602656364",
+      "specs": [
+        "Material: Silicone",
+        "Compatibilidade: iPhone 14",
+        "Tecnologia MagSafe",
+        "Proteção contra arranhões e quedas"
+      ],
+      "rating": 4.6,
+      "availability": "Disponível"
+    },
+    {
+      "name": "Película de Vidro Temperado para iPhone 14",
+      "description": "Proteja a tela do seu iPhone 14 contra arranhões e impactos com esta película de vidro temperado de alta resistência, mantendo a sensibilidade ao toque e clareza da tela.",
+      "brand": "Gorilla Shield",
+      "category": "Acessórios para Celular",
+      "price": {
+        "value": 99.90,
+        "min": 70.00,
+        "max": 150.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Gorilla Shield",
+        "url": "https://www.gorillashield.com.br/pelicula-de-vidro-temperado-para-iphone-14/p"
+      },
+      "image_url": "https://cdn.shopify.com/s/files/1/0074/8991/4477/products/pelicula-de-vidro-temperado-para-iphone-14-gorilla-shield-1_1024x1024.jpg?v=1663785600",
+      "specs": [
+        "Material: Vidro temperado",
+        "Compatibilidade: iPhone 14",
+        "Resistência 9H",
+        "Fácil aplicação"
+      ],
+      "rating": 4.5,
+      "availability": "Disponível"
+    },
+    {
+      "name": "Carregador MagSafe",
+      "description": "O Carregador MagSafe torna o carregamento sem fio rápido e fácil. Os ímãs se alinham perfeitamente ao iPhone 14 para um carregamento sem fio mais rápido de até 15W.",
+      "brand": "Apple",
+      "category": "Acessórios para Celular",
+      "price": {
+        "value": 479.00,
+        "min": 400.00,
+        "max": 500.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Apple Brasil",
+        "url": "https://www.apple.com/br/shop/product/MHXH3AM/A/carregador-magsafe"
+      },
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MHXH3?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=1661709407130",
+      "specs": [
+        "Potência: Até 15W",
+        "Conexão: USB-C",
+        "Compatibilidade: iPhone 14 e modelos anteriores com MagSafe",
+        "Alinhamento magnético"
+      ],
+      "rating": 4.7,
+      "availability": "Disponível"
+    },
+    {
+      "name": "Fone de Ouvido AirPods Pro (2ª geração)",
+      "description": "Os AirPods Pro (2ª geração) oferecem Cancelamento Ativo de Ruído até 2x melhor, Modo Ambiente Adaptável e Áudio Espacial Personalizado para uma experiência sonora imersiva.",
+      "brand": "Apple",
+      "category": "Fones de Ouvido",
+      "price": {
+        "value": 2599.00,
+        "min": 2400.00,
+        "max": 2700.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Apple Brasil",
+        "url": "https://www.apple.com/br/airpods-pro/"
+      },
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MQD83?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=1660602656364",
+      "specs": [
+        "Cancelamento Ativo de Ruído",
+        "Modo Ambiente Adaptável",
+        "Áudio Espacial Personalizado",
+        "Até 6 horas de áudio com uma carga",
+        "Resistência a suor e água"
+      ],
+      "rating": 4.8,
+      "availability": "Disponível"
+    },
+    {
+      "name": "Cabo USB-C para Lightning (1 m)",
+      "description": "Este cabo de 1 metro permite conectar seu iPhone 14 a um carregador USB-C ou porta de computador para carregamento e sincronização de dados.",
+      "brand": "Apple",
+      "category": "Cabos e Adaptadores",
+      "price": {
+        "value": 219.00,
+        "min": 180.00,
+        "max": 250.00,
+        "currency": "BRL"
+      },
+      "source": {
+        "name": "Apple Brasil",
+        "url": "https://www.apple.com/br/shop/product/MM0A3AM/A/cabo-usb-c-para-lightning-1-m"
+      },
+      "image_url": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MM0A3?wid=1144&hei=1144&fmt=jpeg&qlt=95&.v=1661709407130",
+      "specs": [
+        "Tipo: USB-C para Lightning",
+        "Comprimento: 1 metro",
+        "Função: Carregamento e sincronização",
+        "Compatibilidade: iPhone 14 e outros dispositivos Lightning"
+      ],
+      "rating": 4.6,
+      "availability": "Disponível"
+    }
+  ],
+  "search_summary": "Produtos relevantes para 'iPhone 14', incluindo modelos do aparelho, variantes (Plus, Pro, Pro Max) e acessórios essenciais como capas, películas, carregadores e fones de ouvido."
+}
